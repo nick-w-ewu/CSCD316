@@ -30,6 +30,12 @@ public class ThreeNPlus
 
 	private static int threeNHelper(int i, int j)
 	{
+		if(i > j)
+		{
+			int temp = j;
+			j = i;
+			i = temp;
+		}
 		int[] cycleLengths = new int[(j - i)+1];
 		for(int k = 0, m = i; k < cycleLengths.length; k++, m++)
 		{
