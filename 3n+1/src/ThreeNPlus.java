@@ -1,3 +1,11 @@
+//Nicholas Witmer
+//Solution to the 3n+1 problem
+//I test with a minimum of 1 to 1, a minimum/maximum of 999999 to 999999, and a maximum of 1 to 999999.
+//The test file also includes the sample input and some general test cases of normal input. The test file also
+//contains cases where i is greater then j, in which case the program simply swaps the values when processing.
+//Since this solution uses recursion it isn't especially efficient and there is the possibility of stack overflow
+//However in testing it seems to process the test data in a reasonable amount of time without any stack overflows
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
