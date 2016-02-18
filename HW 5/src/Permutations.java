@@ -6,40 +6,52 @@ import java.util.Scanner;
  */
 public class Permutations
 {
+    private static int[][] testVals = {{1}, {1,2}, {1,3,2}, {1,3,4,2}, {2,1,3,4,5}, {3,1,6,4,5,2},
+                        {6,2,7,4,3,1,5}, {8,7,6,5,4,2,3,1}, {8,7,6,5,4,3,2,1}, {7,6,5,2,4,9,3,1,8},
+                        {0,1,2,3,4,5,6,7,8,9}, {4,6,2}, {20,125,100,40}};
     public static void main(String[] args)
     {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Please enter a series of numbers you would like to generate the next permutation for");
-        String original = input.nextLine();
-        String[] splitOriginal;
-        int[] converted;
-
-        while(!original.equalsIgnoreCase("Exit"))
+        int[] result;
+        for(int i = 0; i < testVals.length; i++)
         {
-            splitOriginal = original.split(" ");
-            converted = convertToIntArray(splitOriginal);
-            nextPermutation(converted);
-            for(int i : converted)
-            {
-                System.out.print(i + " ");
-            }
-            System.out.println("\nPlease enter a series of numbers, seperated by a space you would like to " +
-                                "generate the next permutation for");
-            original = input.nextLine();
+            System.out.print("Input Array: ");
+            printArray(testVals[i]);
+            result = nextPermutation(testVals[i]);
+            System.out.print("Next Permutation: ");
+            printArray(result);
         }
     }
 
-    private static void nextPermutation(int[] current)
+    private static void printArray(int[] a)
     {
+        for(int i : a)
+        {
+            System.out.print(i + ",");
+        }
+        System.out.println();
+    }
+
+
+    private static int[] nextPermutation(int[] current)
+    {
+        if(current.length == 1)
+        {
+            return current;
+        }
+        if(current.length == 2)
+        {
+            swap(current, 0, 1);
+            return current;
+        }
         if(current[current.length-2] < current[current.length-1])
         {
             swap(current, current.length-2, current.length-1);
-            return;
+            return current;
         }
         else if(isDecending(current, 0))
         {
             Arrays.sort(current);
-            return;
+            return current;
         }
         else
         {
@@ -53,10 +65,11 @@ public class Permutations
                     indexToSwap = find(current, high);
                     swap(current, i, indexToSwap);
                     Arrays.sort(current, i+1, current.length);
-                    return;
+                    break;
                 }
             }
         }
+        return current;
     }
 
     private static int findNext(int[] current, int i)
