@@ -1,14 +1,12 @@
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
- * Created by nicho on 2/6/2016.
+ * Created by Nicholas Witmer on 2/6/2016 for CSCD316.
  */
 public class Permutations
 {
-    private static int[][] testVals = {{1}, {1,2}, {1,3,2}, {1,3,4,2}, {2,1,3,4,5}, {3,1,6,4,5,2},
-                        {6,2,7,4,3,1,5}, {8,7,6,5,4,2,3,1}, {8,7,6,5,4,3,2,1}, {7,6,5,2,4,9,3,1,8},
-                        {0,1,2,3,4,5,6,7,8,9}, {4,6,2}, {20,125,100,40}};
+    private static int[][] testVals = {{1,5,4,3,2}};
+
     public static void main(String[] args)
     {
         int[] result;
@@ -61,7 +59,7 @@ public class Permutations
             {
                 if(isDecending(current, i+1))
                 {
-                    high = findNext(current, current[i]);
+                    high = findNext(current, current[i], i);
                     indexToSwap = find(current, high);
                     swap(current, i, indexToSwap);
                     Arrays.sort(current, i+1, current.length);
@@ -72,9 +70,9 @@ public class Permutations
         return current;
     }
 
-    private static int findNext(int[] current, int i)
+    private static int findNext(int[] current, int i, int fromIndex)
     {
-        int[] temp = Arrays.copyOf(current, current.length);
+        int[] temp = Arrays.copyOfRange(current, fromIndex, current.length);
         Arrays.sort(temp);
         int index = Arrays.binarySearch(temp, i);
         return temp[index+1];
