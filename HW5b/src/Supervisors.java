@@ -1,36 +1,42 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * Created by nicho_000 on 2/20/2016.
  */
 public class Supervisors
 {
-    private static int[][] supervisorPreferences = {{1,2,3,4,5,6,7}, {2,1,3,4,5,6,7}, {3,1,2,4,5,6,7}, {4,1,2,3,5,6,7},
-                                                    {6,1,2,3,4,5,7}, {6,1,2,3,4,5,7}, {6,1,2,3,4,5,7}};
-    private static int[][] employeePreferences = {{1,2,3,4,5,6,7}, {2,1,3,4,5,6,7}, {3,1,2,4,5,6,7}, {4,1,2,3,5,6,7},
-                                                    {6,1,2,3,4,5,7}, {6,1,2,3,4,5,7}, {6,1,2,3,4,5,7}};
-//    private static int[][] employeePreferences = {{1,2,3,4}, {1,2,3,4}, {1,2,3,4}};
-//    private static int[][] supervisorPreferences = {{1,2,3,4}, {1,2,3,4}, {1,2,3,4}};
+    private static int[][] supervisorPreferences = new int[7][];
+    private static int[][] employeePreferences = new int[7][];
     private static int[][] possibleDistributions = new int[5040][];
     private static int[] totalDifferences = new int[5040];
 
     public static void main(String[] args)
     {
+        Scanner input = openInputFile("supervisors_official.in");
+        int dataSets = input.nextInt();
+        int count = 0;
+        while(count < dataSets)
+        {
+            String temp;
+            for(int i = 0; i < 7; i++)
+            {
+                temp = input.nextLine();
+                supervisorPreferences[i] = convertToIntArray(temp.split(" "));
+            }
+            for(int i = 0; i < 7; i++)
+            {
+                temp = input.nextLine();
+                employeePreferences[i] = convertToIntArray(temp.split(" "));
+            }
+            input.nextLine();
+            count++;
+        }
         int[] seed = {1,2,3,4,5,6,7};
         generateDistributions(seed);
-//        for(int[] i : possibleDistributions)
-//        {
-//            for(int j : i)
-//            {
-//                System.out.print(j);
-//            }
-//            System.out.println();
-//        }
         calculateDifferences();
-//        for(int i : totalDifferences)
-//        {
-//            System.out.println(i);
-//        }
         int min = findMin();
         printPossibleParings(min);
     }
@@ -115,4 +121,33 @@ public class Supervisors
         }
     }
 
+    private static int[] convertToIntArray(String[] splitOriginal)
+    {
+        int[] toReturn = new int[splitOriginal.length];
+        for(int i = 0; i < splitOriginal.length; i++)
+        {
+            toReturn[i] = Integer.parseInt(splitOriginal[i]);
+        }
+        return toReturn;
+    }
+
+    private static Scanner openInputFile(String fileName)
+    {
+        Scanner fileScanner = null;
+        File fileHandle;
+
+        try
+        {
+            fileHandle = new File(fileName);
+
+            fileScanner = new Scanner(fileHandle);
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("File " + fileName + " was not found. The program will accept console input if you wish to continue");
+            fileScanner = new Scanner(System.in);
+        }
+
+        return fileScanner;
+    }
 }
