@@ -11,15 +11,19 @@ public class Supervisors
     private static int[][] supervisorPreferences = new int[7][];
     private static int[][] employeePreferences = new int[7][];
     private static int[][] possibleDistributions = new int[5040][];
-    private static int[] totalDifferences = new int[5040];
+    private static int[] totalDifferences;
 
     public static void main(String[] args)
     {
         Scanner input = openInputFile("supervisors_official.in");
         int dataSets = input.nextInt();
-        int count = 0;
-        while(count < dataSets)
+        int count = 1;
+        int[] seed = {1,2,3,4,5,6,7};
+        generateDistributions(seed);
+
+        while(count <= dataSets)
         {
+            input.nextLine();
             String temp;
             for(int i = 0; i < 7; i++)
             {
@@ -31,14 +35,15 @@ public class Supervisors
                 temp = input.nextLine();
                 employeePreferences[i] = convertToIntArray(temp.split(" "));
             }
-            input.nextLine();
+            totalDifferences  = new int[5040];
+            calculateDifferences();
+            int min = findMin();
+            double difference = (double)min/14.0;
+            System.out.printf("Data Set %d, Best average difference: %.06f\n", count, difference);
+            printPossibleParings(min);
+            System.out.println();
             count++;
         }
-        int[] seed = {1,2,3,4,5,6,7};
-        generateDistributions(seed);
-        calculateDifferences();
-        int min = findMin();
-        printPossibleParings(min);
     }
 
     private static void generateDistributions(int[] seed)
