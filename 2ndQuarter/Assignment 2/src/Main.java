@@ -94,6 +94,7 @@ public class Main
         Scanner input = new Scanner(System.in);
         int cases = input.nextInt(), count = 0;
         String line;
+        boolean first = true;
         input.nextLine();
         input.nextLine();
         while(count < cases)
@@ -102,22 +103,16 @@ public class Main
             while(input.hasNext())
             {
                 processLine(line);
-                try
-                {
-                    line = input.nextLine();
-                }
-                catch(Exception e)
-                {
-                    break;
-                }
+                line = input.nextLine();
                 if(line.equals(""))
                 {
                     break;
                 }
             }
-            printResults();
+            printResults(first);
             this.contestants.clear();
             count++;
+            first = false;
         }
     }
 
@@ -157,7 +152,7 @@ public class Main
         }
     }
 
-    private void printResults()
+    private void printResults(boolean first)
     {
         ArrayList<Contestant> temp = new ArrayList<>();
         Enumeration<Contestant> temp2 = this.contestants.elements();
@@ -166,10 +161,13 @@ public class Main
             temp.add(temp2.nextElement());
         }
         Collections.sort(temp);
+        if(!first)
+        {
+            System.out.println();
+        }
         for(Contestant c : temp)
         {
             System.out.println(c);
         }
-        System.out.println();
     }
 }
