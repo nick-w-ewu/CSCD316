@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 /**
- * Created by nicho_000 on 3/11/2016.
+ * Created by Nicholas Witmer for CSCD316 3/14/2016
  */
 public class BridgeCrossing
 {

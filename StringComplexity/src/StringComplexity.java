@@ -2,8 +2,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * Created by nicho_000 on 3/5/2016.
+ * Created by Nicholas Witmer for CSCD316 3/14/2016.
  */
+
 public class StringComplexity
 {
     public static void main(String[] args)
