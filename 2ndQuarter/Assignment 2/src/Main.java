@@ -1,7 +1,7 @@
 import java.util.*;
 
 /**
- * Created by nicho_000 on 4/10/2016.
+ * Created by Nicholas Witmer on 4/10/2016 for CSCD316. This solves the Contest Scoreboard problem.
  */
 public class Main
 {
